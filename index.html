@@ -64,10 +64,9 @@
       line-height: 1.6;
       z-index: 2;
       display: none;
-      opacity: 0;
     }
     .fadeIn {
-      display: block;
+      display: block !important;
       animation: fadeInEffect 2s ease forwards;
     }
     @keyframes fadeInEffect {
@@ -99,17 +98,17 @@
       100% {transform: translateY(-10vh) scale(1.2); opacity: 0;}
     }
 
-    /* Confetti */
+    /* Confetti burst */
     .confetti {
       position: absolute;
       width: 10px;
       height: 10px;
       background-color: red;
-      animation: confettiFall 3s linear forwards;
+      animation: confettiBurst 1.5s ease-out forwards;
     }
-    @keyframes confettiFall {
-      0% {transform: translateY(0) rotate(0deg);}
-      100% {transform: translateY(100vh) rotate(720deg);}
+    @keyframes confettiBurst {
+      0% {transform: translateY(0) rotate(0deg); opacity:1;}
+      100% {transform: translateY(100vh) rotate(720deg); opacity:0;}
     }
 
     /* Twinkling stars */
@@ -129,8 +128,8 @@
   </style>
 </head>
 <body>
-  <h1>Hi Abhi ❤️</h1>
-  <h2>My love, Will you be my Valentine forever? 💖🌹</h2>
+  <h1>My Love ❤️</h1>
+  <h2>Will you be my Valentine forever? 💖🌹</h2>
   <button id="yesBtn">Yes</button>
   <button id="noBtn">No</button>
 
@@ -167,16 +166,15 @@
 
       noBtn.style.display = "none";
 
-      // Confetti burst
+      // Confetti burst once
       for (let i = 0; i < 50; i++) {
         const confetti = document.createElement("div");
         confetti.classList.add("confetti");
         confetti.style.left = Math.random() * window.innerWidth + "px";
         confetti.style.top = "-20px";
         confetti.style.backgroundColor = ["red","gold","blue","green","purple"][Math.floor(Math.random()*5)];
-        confetti.style.animationDelay = Math.random() * 2 + "s";
         document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 4000);
+        setTimeout(() => confetti.remove(), 2000); // remove quickly
       }
     });
 

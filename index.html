@@ -14,7 +14,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      /* Animated gradient background */
       background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
       background-size: 400% 400%;
       animation: gradientBG 12s ease infinite;
@@ -33,7 +32,8 @@
     }
     h2 {
       font-size: 28px;
-      color: #333;
+      color: red;
+      font-weight: bold;
     }
     button {
       font-size: 20px;
@@ -63,8 +63,18 @@
       max-width: 600px;
       line-height: 1.6;
       z-index: 2;
+      display: none;
+      opacity: 0;
     }
-    /* Rainbow text effect */
+    .fadeIn {
+      display: block;
+      animation: fadeInEffect 2s ease forwards;
+    }
+    @keyframes fadeInEffect {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
     .rainbow {
       background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
       -webkit-background-clip: text;
@@ -77,7 +87,6 @@
       100% {background-position: 100%;}
     }
 
-    /* Floating hearts */
     .heart {
       position: absolute;
       font-size: 30px;
@@ -89,11 +98,39 @@
       50% {opacity: 1;}
       100% {transform: translateY(-10vh) scale(1.2); opacity: 0;}
     }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: confettiFall 3s linear forwards;
+    }
+    @keyframes confettiFall {
+      0% {transform: translateY(0) rotate(0deg);}
+      100% {transform: translateY(100vh) rotate(720deg);}
+    }
+
+    /* Twinkling stars */
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+      opacity: 0.8;
+    }
+    @keyframes twinkle {
+      from {opacity: 0.2; transform: scale(0.8);}
+      to {opacity: 1; transform: scale(1.2);}
+    }
   </style>
 </head>
 <body>
-  <h1>My Love ❤️</h1>
-  <h2>Will you be my Valentine forever? 💖🌹</h2>
+  <h1>Hi Abhi ❤️</h1>
+  <h2>My love, Will you be my Valentine forever? 💖🌹</h2>
   <button id="yesBtn">Yes</button>
   <button id="noBtn">No</button>
 
@@ -106,23 +143,43 @@
   <div class="heart" style="left:70%; color:teal; animation-delay:6s;">💚</div>
   <div class="heart" style="left:85%; color:blue; animation-delay:8s;">💙</div>
 
+  <!-- Twinkling stars -->
+  <div class="star" style="top:20%; left:15%; animation-delay:0s;"></div>
+  <div class="star" style="top:40%; left:70%; animation-delay:1s;"></div>
+  <div class="star" style="top:60%; left:30%; animation-delay:2s;"></div>
+  <div class="star" style="top:80%; left:50%; animation-delay:0.5s;"></div>
+  <div class="star" style="top:25%; left:85%; animation-delay:1.5s;"></div>
+
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
 
-    // Show colorful romantic message when "Yes" is clicked
     yesBtn.addEventListener("click", () => {
+      message.classList.add("fadeIn");
       message.innerHTML =
         "<span class='rainbow'>Yay.. you agreed 💕</span><br><br>" +
         "<span style='color:#d10056;'>❤️ Happy Valentine's Day ❤️🌹</span><br><br>" +
         "<span style='color:#ff6600;'>💍 Married once.</span><br>" +
-        "<span style='color:#009933;'>💖 Choosing you every day :-) for the rest of life.</span><br>" +
+        "<span style='color:#009933;'>💖 Choosing you every day for the rest of life.</span><br>" +
         "<span style='color:#0066cc;'>⭐ Forever yours 💍</span><br><br>" +
-        "<span style='color:#800080;'>- Mouni 💖 Abhi </span>";
+        "<span style='color:#800080;'>- Mouni</span>";
+
+      noBtn.style.display = "none";
+
+      // Confetti burst
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = "-20px";
+        confetti.style.backgroundColor = ["red","gold","blue","green","purple"][Math.floor(Math.random()*5)];
+        confetti.style.animationDelay = Math.random() * 2 + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
     });
 
-    // Make "No" button run away when hovered
     noBtn.addEventListener("mouseover", () => {
       const x = Math.floor(Math.random() * (window.innerWidth - 100));
       const y = Math.floor(Math.random() * (window.innerHeight - 50));

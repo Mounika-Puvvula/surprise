@@ -8,20 +8,32 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
+      /* Animated gradient background */
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
     }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     h1 {
       font-size: 48px;
       color: #d10056;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
     h2 {
       font-size: 28px;
-      color: #b30047;
+      color: #333;
     }
     button {
       font-size: 20px;
@@ -32,47 +44,82 @@
       border-radius: 8px;
       background-color: #ff4d88;
       color: white;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      z-index: 2;
     }
     button:hover {
       transform: scale(1.1);
+      background-color: #ff1a66;
     }
     #message {
       margin-top: 40px;
       font-size: 26px;
-      color: #d10056;
       font-weight: bold;
       white-space: pre-line;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       max-width: 600px;
+      line-height: 1.6;
+      z-index: 2;
+    }
+    /* Rainbow text effect */
+    .rainbow {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowShift 5s linear infinite;
+      background-size: 400% 100%;
+    }
+    @keyframes rainbowShift {
+      0% {background-position: 0%;}
+      100% {background-position: 100%;}
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 30px;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% {transform: translateY(100vh) scale(0.8); opacity: 0;}
+      50% {opacity: 1;}
+      100% {transform: translateY(-10vh) scale(1.2); opacity: 0;}
     }
   </style>
 </head>
 <body>
-  <h1>My Valentine ❤️</h1>
+  <h1>My Love ❤️</h1>
   <h2>Will you be my Valentine forever? 💖🌹</h2>
   <button id="yesBtn">Yes</button>
   <button id="noBtn">No</button>
 
   <div id="message"></div>
 
+  <!-- Floating hearts -->
+  <div class="heart" style="left:10%; color:red; animation-delay:0s;">❤️</div>
+  <div class="heart" style="left:30%; color:gold; animation-delay:2s;">💛</div>
+  <div class="heart" style="left:50%; color:purple; animation-delay:4s;">💜</div>
+  <div class="heart" style="left:70%; color:teal; animation-delay:6s;">💚</div>
+  <div class="heart" style="left:85%; color:blue; animation-delay:8s;">💙</div>
+
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
 
-    // Show romantic message when "Yes" is clicked
+    // Show colorful romantic message when "Yes" is clicked
     yesBtn.addEventListener("click", () => {
-      message.textContent =
-        "Yay.. you agreed 💕\n\n" +
-        "❤️ Happy Valentine's Day ❤️🌹\n\n" +
-        "💍 Married once.\n" +
-        "💖 Choosing you every day for the rest of life.\n" +
-        "⭐ Forever yours 💍\n\n" +
-        "- Mouni";
+      message.innerHTML =
+        "<span class='rainbow'>Yay.. you agreed 💕</span><br><br>" +
+        "<span style='color:#d10056;'>❤️ Happy Valentine's Day ❤️🌹</span><br><br>" +
+        "<span style='color:#ff6600;'>💍 Married once.</span><br>" +
+        "<span style='color:#009933;'>💖 Choosing you every day :-) for the rest of life.</span><br>" +
+        "<span style='color:#0066cc;'>⭐ Forever yours 💍</span><br><br>" +
+        "<span style='color:#800080;'>- Mouni 💖 Abhi </span>";
     });
 
     // Make "No" button run away when hovered
